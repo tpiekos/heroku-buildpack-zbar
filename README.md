@@ -3,6 +3,8 @@ Heroku buildpack: ZBAR
 
 This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks) for apps requiring ZBAR as a dependency. It is configured to work with the [ruby zbar gem](https://github.com/willglynn/ruby-zbar) but should work with other stacks. This buildpack also applies a [patch to Zbar](https://bugs.launchpad.net/ubuntu/+source/zbar/+bug/1185157) that fixes some jpeg issues, and is required for ruby zbar to work.
 
+Please see notes below to get this working on Heroku-20 or Heroku-22.
+
 Adding to an existing Ruby App
 ---------------
 1. `heroku config:set ZBAR_LIB=vendor/lib/libzbar.so`
@@ -19,6 +21,12 @@ Requirements
   2. heroku/ruby
 ````
 if it does not, remove the ruby buildpack and re-add it to move it to the bottom
+
+## Heroku-20 and Heroku-22
+In order to have this work with Heroku-20 or Heroku-22 stacks, the following steps need to be taken:
+
+1. Add the `heroku-buildpack-apt` buildpack to the top of the load order (before the zbar buildpack)
+2. Add an 'Aptfile' in the root of your project that contains `libpython2.7-dev`. See Aptfile.example for reference.
 
 ### Todo
 

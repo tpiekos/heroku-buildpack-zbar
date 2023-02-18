@@ -16,6 +16,8 @@ function indent() {
   esac
 }
 
+export CPATH=$CPATH$BUILD_DIR/.apt/usr/include/python2.7
+
 # check for ZBAR_LIB
 echo_zbar_error() {
   echo "Running the following command may fix this:" | indent
